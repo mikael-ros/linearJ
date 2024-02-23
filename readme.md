@@ -2,6 +2,8 @@
 
 A tool for doing linear algebra calculations.
 
+Functionality is based on the needs of the book Linjar Algebra by Jonas Mansson.
+
 ### Motivation
 Knowing full well these kinds of tools already exist, this projects purpose is not to replace any existing tools (as it just is not as encompassing), but just to learn.
 
