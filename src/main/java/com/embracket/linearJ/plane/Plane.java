@@ -2,6 +2,7 @@ package com.embracket.linearJ.plane;
 
 import com.embracket.linearJ.vector.Vector;
 import com.embracket.linearJ.vector.Vector3D;
+import static com.embracket.linearJ.vector.VectorOperations.*;
 
 import java.util.Arrays;
 
@@ -14,8 +15,8 @@ public class Plane {
      * @param axisTwo second axis
      */
     public Plane(Vector3D axisOne, Vector3D axisTwo){
-        this.axisOne = axisOne.getUnitVector();
-        this.axisTwo = axisTwo.getUnitVector();
+        this.axisOne = getUnitVector(axisOne);
+        this.axisTwo = getUnitVector(axisTwo);
     }
 
     /**
