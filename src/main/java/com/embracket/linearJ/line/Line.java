@@ -1,5 +1,7 @@
 package com.embracket.linearJ.line;
 
+import com.embracket.linearJ.equation.Equation;
+import com.embracket.linearJ.equation.EquationSystem;
 import com.embracket.linearJ.vector.Vector;
 import com.embracket.linearJ.point.Point;
 import static com.embracket.linearJ.vector.VectorOperations.*;
@@ -7,6 +9,7 @@ import static com.embracket.linearJ.vector.VectorOperations.*;
 public class Line {
     private Point point;
     private Vector direction;
+    private Vector normal;
 
     /**
      * Constructs a line using a point and a direction
@@ -21,7 +24,7 @@ public class Line {
      * Construct using normal
      * @param normal the normal
      */
-//    public Line(Vector normal){
-//
-//    }
+    public Line(Vector normal){
+        this.normal = normal;
+    }
 }

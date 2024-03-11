@@ -3,14 +3,18 @@ package com.embracket.linearJ.point;
 import com.embracket.linearJ.vector.Vector;
 
 public class Point {
-    private int[] coordinates;
+    private double[] coordinates;
 
-    public Point(int[] coordinates){
+    public Point(double[] coordinates){
         this.coordinates = coordinates;
     }
 
     public Point(int dimension){
-        coordinates = new int[dimension];
+        coordinates = new double[dimension];
+    }
+
+    public double[] getCoordinates(){
+        return coordinates;
     }
 
     public int getDimension(){

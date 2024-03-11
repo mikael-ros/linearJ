@@ -1,6 +1,8 @@
 package com.embracket.linearJ.vector;
 
+import static com.embracket.linearJ.point.PointOperations.*;
 import com.embracket.linearJ.util.WrongDimensionException;
+import com.embracket.linearJ.point.Point;
 
 public class Vector {
     private double[] coordinates;
@@ -14,6 +16,23 @@ public class Vector {
     public Vector(double constant, int dimension){
         this.coordinates = new double[dimension];
         setConstant(constant);
+    }
+
+    /**
+     * Creates a vector from 2 points, "end point - begin point"
+     * @param p1 The origin point
+     * @param p2 The end point
+     */
+    public Vector(Point p1, Point p2){
+        this.coordinates = sub(p2,p1).getCoordinates();
+    }
+
+    /**
+     * Creates a origin vector (a vector with the same coordinates as the point itself)
+     * @param p The point
+     */
+    public Vector(Point p){
+        this.coordinates = p.getCoordinates();
     }
 
     public int getDimension(){
