@@ -64,7 +64,7 @@ public class EquationParser {
      * @return A list of coefficients
      */
     private static String[] splitCoefficients(String hand){
-        return hand.replaceAll("\\+","").split("[a-z]|[A-Z]");
+        return hand.replaceAll("[a-z]|[A-Z]","").split("(\\+)|(?=-)");
     }
 
     /**
@@ -73,7 +73,7 @@ public class EquationParser {
      * @return A list of terms
      */
     private static String[] splitTerms(String hand){
-        return hand.split("(\\+)|(-)|(/)|(\\*)|[0-9]");
+        return hand.replaceAll("\\d|(\\.)|(/)","").split("(\\+)|(-)");
     }
 
 

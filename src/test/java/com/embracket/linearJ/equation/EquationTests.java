@@ -3,12 +3,14 @@ package com.embracket.linearJ.equation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.embracket.linearJ.equation.EquationParser.parseEquation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EquationTests {
     private Map<String, Double> leftHand = new HashMap<>();
@@ -134,4 +136,75 @@ public class EquationTests {
         assertEquals(leftHand, parsedEquation.getLeftHand());
         assertEquals(rightHand, parsedEquation.getRightHand());
     }
+
+    @Test
+    void testEquationWithSubscriptVariableName(){
+        String equation = "2x_1 + x_2 = 2";
+
+        leftHand.put("x_1", 2.0);
+        leftHand.put("x_2", 1.0);
+        rightHand.put("",2.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
+
+    @Test
+    void testEquationWithNoVariables(){
+        String equation = "2 + 1 = 3";
+
+        leftHand.put("", 3.0);
+        rightHand.put("",3.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
+
+    @Test
+    void testEquationWithNoVariablesOnlyNegative(){
+        String equation = "-2 - 1 = -3";
+
+        leftHand.put("", -3.0);
+        rightHand.put("",-3.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
+
+    @Test
+    void testEquationWithDuplicateVariables(){
+        String equation = "2x + 4x = 2";
+
+        leftHand.put("x", 6.0);
+        rightHand.put("",2.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
+
+//    @Test
+//    void testEquationWithWrongFormatThrowsBadEquationFormatException(){
+//        String equation = "2x = 2 = 2";
+//
+//        assertThrows(BadEquationFormatException.class, () -> {
+//            parseEquation(equation);
+//        });
+//    }
+//
+//    @Test
+//    void testEquationOfIncorrectTypeThrowsWrongEquationTypeException(){
+//        String equation = "2sin(x) = 1";
+//
+//        assertThrows(WrongEquationTypeException.class, () -> {
+//            parseEquation(equation);
+//        });
+//    }
 }
