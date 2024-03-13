@@ -139,10 +139,10 @@ public class EquationTests {
 
     @Test
     void testEquationWithSubscriptVariableName(){
-        String equation = "2x_1 + x_2 = 2";
+        String equation = "2x_1 + 3x_2 = 2";
 
         leftHand.put("x_1", 2.0);
-        leftHand.put("x_2", 1.0);
+        leftHand.put("x_2", 3.0);
         rightHand.put("",2.0);
 
         Equation parsedEquation = parseEquation(equation);
@@ -190,6 +190,48 @@ public class EquationTests {
         assertEquals(rightHand, parsedEquation.getRightHand());
     }
 
+    @Test
+    void testEquationWithSeveralDigitMultipliers(){
+        String equation = "21x = 2";
+
+        leftHand.put("x", 21.0);
+        rightHand.put("",2.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
+
+    @Test
+    void testEquationWithDuplicateMultipliers(){
+        String equation = "2x + 2y + 2 = 2";
+
+        leftHand.put("x", 2.0);
+        leftHand.put("y", 2.0);
+        leftHand.put("", 2.0);
+        rightHand.put("",2.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
+
+    @Test
+    void testNegatedVariableMultipliers(){
+        String equation = "2x - 2x + 2y + 2 = 2";
+
+        leftHand.put("x", 0.0);
+        leftHand.put("y", 2.0);
+        leftHand.put("", 2.0);
+        rightHand.put("",2.0);
+
+        Equation parsedEquation = parseEquation(equation);
+
+        assertEquals(leftHand, parsedEquation.getLeftHand());
+        assertEquals(rightHand, parsedEquation.getRightHand());
+    }
 //    @Test
 //    void testEquationWithWrongFormatThrowsBadEquationFormatException(){
 //        String equation = "2x = 2 = 2";

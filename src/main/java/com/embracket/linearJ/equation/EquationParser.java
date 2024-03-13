@@ -32,19 +32,11 @@ public class EquationParser {
     }
 
     private static void populate(Map<String, Double> mapToPopulate, String hand, String[] coefficients, String[] terms){
-        for (String coefficient : coefficients) {
-            double value = (coefficient.contains("/")) ? parseFraction(coefficient) : Double.parseDouble(coefficient);
-            int indexOfProspectiveVariable = hand.indexOf(coefficient) + coefficient.length();
-            // What lies below is a disgrace to humanity itself
-            String variable = (indexOfProspectiveVariable < hand.length()
-                    && Arrays.asList(terms).contains(String.valueOf(hand.charAt(indexOfProspectiveVariable))))
-                    ? String.valueOf(hand.charAt(indexOfProspectiveVariable)) : "";
-            mapToPopulate.put(variable, mapToPopulate.getOrDefault(variable, 0.0) + value);
+        for (int i = 0; i < coefficients.length; i++){
+            mapToPopulate.put(terms[i], mapToPopulate.getOrDefault(terms[i], 0.0) + parse(coefficients[i]));
         }
         for (String term : terms){
-            if (!term.isEmpty()) { // REMOVE this later, temporary due to split artifacts!!!
-                mapToPopulate.putIfAbsent(term, 1.0);
-            }
+            mapToPopulate.putIfAbsent(term, 1.0);
         }
     }
 
@@ -58,13 +50,17 @@ public class EquationParser {
         return Double.parseDouble(split[0]) / Double.parseDouble(split[1]);
     }
 
+    private static double parse(String number){
+        return (number.contains("/")) ? parseFraction(number) : Double.parseDouble(number);
+    }
+
     /**
      * Gathers all the coefficients
      * @param hand The side of the equation
      * @return A list of coefficients
      */
     private static String[] splitCoefficients(String hand){
-        return hand.replaceAll("[a-z]|[A-Z]","").split("(\\+)|(?=-)");
+        return hand.replaceAll("[a-z]|[A-Z]|(_\\w*)","").split("(\\+)|(?=-)");
     }
 
     /**
@@ -73,7 +69,11 @@ public class EquationParser {
      * @return A list of terms
      */
     private static String[] splitTerms(String hand){
-        return hand.replaceAll("\\d|(\\.)|(/)","").split("(\\+)|(-)");
+        String[] terms = hand.replaceAll("(?<!_)\\d|(\\.)|(/)"," ").split("(\\+)|(-)");
+        for (int i = 0; i < terms.length; i++){
+            terms[i] = terms[i].replaceAll("\\s","");
+        }
+        return terms;
     }
 
 
