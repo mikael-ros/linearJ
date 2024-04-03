@@ -28,7 +28,7 @@ public class Vector {
     }
 
     /**
-     * Creates a origin vector (a vector with the same coordinates as the point itself)
+     * Creates an origin vector (a vector with the same coordinates as the point itself)
      * @param p The point
      */
     public Vector(Point p){

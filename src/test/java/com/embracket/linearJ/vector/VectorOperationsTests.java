@@ -91,18 +91,27 @@ public class VectorOperationsTests {
     @Test
     void testVectorProduct(){
         // This test corresponds to example 1.11
-        Vector vectorOne = new Vector(new double[]{1,2,-2});
-        Vector vectorTwo = new Vector(new double[]{-1,2,2});
+        Vector3D vectorOne = new Vector3D(new double[]{1,2,-2});
+        Vector3D vectorTwo = new Vector3D(new double[]{-1,2,2});
 
-        assertEquals(new Vector(new double[]{8,0,4}), vectorProduct(vectorOne, vectorTwo));
+        assertEquals(new Vector3D(new double[]{8,0,4}), vectorProduct(vectorOne, vectorTwo));
     }
 
     @Test
-    void testVectorProductDifferentDimension(){
-        Vector vectorOne = new Vector(new double[]{0,0,0});
-        Vector vectorTwo = new Vector(new double[]{1,1,1,1});
+    void testOrthogonalProjection(){
+        // This test corresponds to example 1.8
+        Vector3D vector = new Vector3D(new double[]{1,-2,1});
+        Vector3D projector = new Vector3D(new double[]{-1,1,0});
+
+        assertEquals(new Vector3D(new double[]{1.5,-1.5,0}), projectOrthogonal(vector, projector)); // This test currently doesn't pass due to rounding errors in the getLength function. 
+    }
+
+    @Test
+    void testOrthogonalProjectionDifferentDimension(){
+        Vector vector = new Vector(new double[]{0,0,0});
+        Vector projector = new Vector(new double[]{1,1,1,1});
         assertThrows(WrongDimensionException.class, () -> {
-            vectorProduct(vectorOne,vectorTwo);
+            projectOrthogonal(vector,projector);
         });
     }
 }
