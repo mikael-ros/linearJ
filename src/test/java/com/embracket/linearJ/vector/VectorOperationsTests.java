@@ -87,4 +87,22 @@ public class VectorOperationsTests {
         Vector vector = new Vector(new double[]{3,0,0});
         assertEquals(new Vector(new double[]{1,0,0}), getUnitVector(vector));
     }
+
+    @Test
+    void testVectorProduct(){
+        // This test corresponds to example 1.11
+        Vector vectorOne = new Vector(new double[]{1,2,-2});
+        Vector vectorTwo = new Vector(new double[]{-1,2,2});
+
+        assertEquals(new Vector(new double[]{8,0,4}), vectorProduct(vectorOne, vectorTwo));
+    }
+
+    @Test
+    void testVectorProductDifferentDimension(){
+        Vector vectorOne = new Vector(new double[]{0,0,0});
+        Vector vectorTwo = new Vector(new double[]{1,1,1,1});
+        assertThrows(WrongDimensionException.class, () -> {
+            vectorProduct(vectorOne,vectorTwo);
+        });
+    }
 }

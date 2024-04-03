@@ -69,6 +69,7 @@ public class EquationParser {
      * @return A list of terms
      */
     private static String[] splitTerms(String hand){
+        var test = hand.replaceAll("(?<!_)\\d|(\\.)|(/)"," ");
         String[] terms = hand.replaceAll("(?<!_)\\d|(\\.)|(/)"," ").split("(\\+)|(-)");
         for (int i = 0; i < terms.length; i++){
             terms[i] = terms[i].replaceAll("\\s","");

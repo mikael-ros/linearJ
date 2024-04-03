@@ -1,5 +1,7 @@
 package com.embracket.linearJ.vector;
 
+import com.embracket.linearJ.util.WrongDimensionException;
+
 /**
  * Operations that take vectors, modify them, and return a new vector
  */
@@ -45,6 +47,28 @@ public class VectorOperations {
             result.getVector()[i] = vector.getVector()[i] * multiplier;
         }
         return result;
+    }
+
+    /**
+     * Calculates the vector product u x v = (a1, a2, a3) x (b1, b2, b3) = (a2b3 - a3b2, a3b1 - a1b3, a1b2 - a2b1)
+     * @param vectorOne A vector
+     * @param vectorTwo Another vector, to be multiplied with
+     * @return A new vector, if both vectors are same dimension and 3D
+     * @throws WrongDimensionException If the vectors aren't the same dimension, or aren't 3D, since such operations are not defined
+     */
+    public static Vector vectorProduct(Vector vectorOne, Vector vectorTwo) /*throws WrongDimensionException*/ {
+        if (vectorOne.sameDimension(vectorTwo) && vectorOne.getDimension() == 3){
+            double[] v1Coords = vectorOne.getVector();
+            double[] v2Coords = vectorTwo.getVector();
+                           // Writing several on same line for readability
+            /* Vector One */ double a1 = v1Coords[0]; double a2 = v1Coords[1]; double a3 = v1Coords[2];
+            /* Vector Two */ double b1 = v2Coords[0]; double b2 = v2Coords[1]; double b3 = v2Coords[2];
+
+            double[] resultVectorCoordinates = new double[]{a2*b3 - a3*b2, a3*b1 - a1*b3, a1*b2 - a2*b1};
+            return new Vector(resultVectorCoordinates);
+        }
+        //throw new WrongDimensionException(); // If the dimensions don't match, or the vectors are not 2D/3D, throw exception
+        return new Vector(3); // This is temporary until I get exceptions figured out
     }
 
     public static double getLength(Vector vector){
